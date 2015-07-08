@@ -244,6 +244,7 @@ def wait_for_node_discovery(discoverd_client, auth_token, discoverd_url,
                 base_url=discoverd_url,
                 auth_token=auth_token)
 
+            print(node_uuid, status)
             if status['finished']:
                 log.debug("Discover finished for node {0} (Error: {1})".format(
                     node_uuid, status['error']))
@@ -342,6 +343,8 @@ def set_nodes_state(baremetal_client, nodes, transition, target_state,
                                         target_state):
             print("FAIL: State not updated for Node {0}".format(
                   node.uuid, file=sys.stderr))
+        else:
+            yield node.uuid
 
 
 def get_hiera_key(key_name):
